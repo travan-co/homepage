@@ -1,0 +1,821 @@
+/*see Ken Taylor Figma doc
+ *
+ *font			        size    line	weight	short	map
+ *name			        SM	MAX	SM	MAX		    ID	    to
+ * ---------------------------------------------------------------------------
+ *fluid-display-03	    42	84	50	94	    600 FD-03	h1
+ *fluid-quotation-02	32	60	40	70	    300 FQ-02	h2
+ *fluid-heading-06	    32	60	40	70	    600 FH-06	h3
+ *fluid-heading-05	    32	60	40	70	    300 FH-05	h4
+ *fluid-heading-04	    28	32	36	40	    300 FH-04	h5
+ *heading-compact-02 	-	1.0	-	1.375	600	HC-02	h6
+ *body-02		        -	1.0	-	1.5	    400	BD-02	p
+ *
+ * for clamp() ramping, see "https://modern-fluid-typography.vercel.app/"
+ *
+ *
+ */
+
+:root {
+    --h1-size: clamp(2.625rem, 5vw + 1.5rem, 5.25rem);
+    --h1-line: clamp(3.125rem, 5vw + 2rem, 5.875rem);
+    --h1-weight: 600;
+
+    --h2-size: clamp(2rem, 5vw + 1rem, 3.75rem);
+    --h2-line: clamp(2.5rem, 5vw + 1.25rem, 4.375rem);
+    --h2-weight: 300;
+
+    --h3-size: clamp(2rem, 5vw + 1rem, 3.75rem);
+    --h3-line: clamp(2.5rem, 5vw + 1.25rem, 4.375rem);
+    --h3-weight: 600;
+
+    --h4-size: clamp(2rem, 5vw + 1rem, 3.75rem);
+    --h4-line: clamp(2.5rem, 5vw + 1.25rem, 4.375rem);
+    --h4-weight: 300;
+
+    --h5-size: clamp(1.75rem, 2vw + 1.25rem, 2rem);
+    --h5-line: clamp(2.25rem, 4vw + 1.25rem, 2.5rem);
+    --h5-weight: 300;
+
+    --h6-size: 1rem;
+    --h6-line: 1.375rem;
+    --h6-weight: 600;
+
+    --p-size: 12px;
+    --p-line: 16px;
+    --p-weight: 400;
+
+
+    --blue60: #2d61ff;
+    --yellow20: #FFCA2D;
+
+
+    --white: #ffffff;
+    --black: #000000;
+
+    --grey10: #f4f4f4;
+    --grey20: #e0e0e0;
+    --grey30: #c6c6c6;
+    --grey40: #a8a8a8;
+    --grey50: #8d8d8d;
+    --grey60: #6f6f6f;
+    --grey70: #4d5358;
+    --grey80: #393939;
+    --grey90: #262626;
+    --grey100: #161616;
+
+    --gap-xs : 0.128;
+    --gap-s  : 0.272;
+    --gap-m  : 0.618;
+    --gap-l  : 1;
+    --gap-xl : 1.618;
+    --gap-xxl: 2.618;
+
+
+    --font-size: 16px;
+    --ff: "fira";
+    --padding: 1rem;
+    --max-width: 1600px;
+    /* Padding between heading text and sub-heading(how much of the background image we show) */
+
+    /* Padding at top and bottom of each section */
+    --padding-section-top-bottom: 5rem;
+    --padding-hero-elements: 5.25rem;
+
+    /* Section break variables */
+    --section-break-height: 1.0rem;
+
+    /* Tab padding for sections */
+    --tab-padding: 6.75rem;
+}
+
+@font-face {
+    font-family: "fira";
+    font-style: normal;
+    font-weight: 400;
+    src: url(./assets/fonts/FiraSans-Regular.woff2);
+}
+
+@font-face {
+    font-family: "fira";
+    font-style: normal;
+    font-weight: 300;
+    src: url(./assets/fonts/FiraSans-Light.woff2);
+}
+
+@font-face {
+    font-family: "fira";
+    font-style: normal;
+    font-weight: 600;
+    src: url(./assets/fonts/FiraSans-SemiBold.woff2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-size: var(--font-size);
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+    list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+    max-width: 100%;
+    display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Animation for scrolling */
+@keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+/* Ensure smooth infinite loop */
+#carousel-track:hover {
+animation-play-state: paused;
+}
+
+button:hover {
+    background-color: var(--yellow20);
+    color: var(--black);
+}
+
+
+h1 {
+    font-family: var(--ff);
+    font-size: var(--h1-size);
+    line-height: var(--h1-line);
+    font-weight: var(--h1-weight);
+}
+
+h1 span {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: inherit;
+}
+
+
+h2 {
+    font-family: var(--ff);
+    font-size: var(--h2-size);
+    line-height: var(--h2-line);
+    font-weight: var(--h2-weight);
+}
+
+h3 {
+    font-family: var(--ff);
+    font-size: var(--h3-size);
+    line-height: var(--h3-line);
+    font-weight: var(--h3-weight);
+}
+
+h4 {
+    font-family: var(--ff);
+    font-size: var(--h4-size);
+    line-height: var(--h4-line);
+    font-weight: var(--h4-weight);
+}
+
+h5 {
+    font-family: var(--ff);
+    font-size: var(--h5-size);
+    line-height: var(--h5-line);
+    font-weight: var(--h5-weight);
+}
+
+h6 {
+    font-family: var(--ff);
+    font-size: var(--h6-size);
+    line-height: var(--h6-line);
+    font-weight: var(--h6-weight);
+}
+
+p {
+    font-family: var(--ff);
+    font-size: var(--p-size);
+    line-height: var(--p-line);
+    font-weight: var(--p-weight);
+}
+
+.fixed-heading-07 {
+    font-size: var(--FH-07-size);
+    font-weight: var(--FH-07-weight);
+    line-height: var(--FH-07-line);
+}
+
+.fluid-display-01 {
+    font-size: var(--FD-01-size);
+    line-height: var(--FD-01-height);
+    font-weight: var(--FD-01-weight);
+}
+
+.anim-sc10 {
+    animation: scroll 10s linear infinite;
+}
+
+.alncon-cen {
+    align-content: center;
+}
+
+.alnitm-cen {
+    align-items: center;
+}
+
+.alnitm-base {
+    align-items: baseline;
+}
+
+.alnitm-end {
+    align-items: end;
+}
+
+.alnitm-start {
+    align-items: start;
+}
+
+.back-gr10 {
+    background-color: var(--grey10);
+}
+
+.back-gr50 {
+    background-color: var(--grey50);
+}
+
+.back-gr90 {
+    background-color: var(--grey90);
+}
+
+
+.back-bl60 {
+    background-color: var(--blue60);
+}
+
+.back-rd60 {
+    background-color: var(--red60);
+}
+
+.back-whit {
+    background-color: var(--white);
+}
+
+.back-blck {
+    background-color: var(--black);
+}
+
+.back-yl20 {
+    background-color: var(--yellow20);
+}
+
+.back-grad-01 {
+    background-image: linear-gradient( var(--white), var(--grey90) );
+}
+
+.back-tran {
+    background-color: transparent;
+}
+
+
+
+.bkim-wide-road {
+    background-image: url(./assets/images/road_desat_colorize60_16x9_1200px.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.bkim-wide-cup {
+    background-image: url(./assets/images/cup_desat_colorize60_16x9_1200px_72dpi.webp);
+    background-size: cover;
+    background-position: center;
+}
+
+.bkim-sqre-kids {
+    background-image: url(./assets/images/kids_1x1_600px_72dpi.webp);
+    background-size: cover;
+    background-position: center;
+}
+
+.bkim-sqre-papr {
+    background-image: url(./assets/images/paper_1x1_600px_72dpi.webp.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.bkim-sqre-pipe {
+    background-image: url(./assets/images/pipe_1x1_600px_72dpi.webp);
+    background-size: cover;
+    background-position: center;
+}
+
+.bkim-sqre-botl {
+    background-image: url(./assets/images/bottle_1x1_600px_72dpi.webp);
+    background-size: cover;
+    background-position: center;
+}
+
+.brad-20px {
+    border-radius: 20px;
+}
+
+.brad-50px {
+    border-radius: 50px;
+}
+
+.brad-50pc {
+    border-radius: 50%;
+}
+
+.colr-whit {
+    color: var(--white);
+}
+
+.colr-bl60 {
+    color: var(--blue60);
+}
+
+.colr-gr90 {
+    color: var(--grey90);
+}
+
+.colr-gr70 {
+    color: var(--grey70);
+}
+
+.colr-gr50 {
+    color: var(--grey50);
+}
+
+.colr-gr10 {
+    color: var(--grey10);
+}
+
+.colr-rd60 {
+    color: var(--red60);
+}
+
+.colr-yl20 {
+    color: var(--yellow20);
+}
+
+.disp-flex {
+    display: flex;
+}
+
+.disp-grid  {
+    display: grid;
+}
+
+.disp-none {
+    display: none;
+}
+
+.flxdir-col {
+    flex-direction: column;
+}
+
+.grcl-1sp2 {
+    grid-column: span 2;
+}
+
+.grcl-1sp3 {
+    grid-column: span 3;
+}
+
+.grtc-21fr {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grtc-31fr {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grtc-41fr {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.grtc-51fr {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.grtc-61fr {
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.gap-pad {
+    gap: var(--padding) ;
+}
+
+.gap-2rem {
+    gap: 2rem ;
+}
+
+.gap-3rem {
+    gap: 6rem ;
+}
+
+
+.higt-1rem {
+    height: 1rem;
+}
+
+.higt-2rem {
+    height: 2rem;
+}
+
+.higt-3rem {
+    height: 3rem;
+}
+
+.higt-4rem {
+    height: 4rem;
+}
+
+.higt-6rem {
+    height: 6rem;
+}
+
+
+
+.higt-hero {
+    height: min(60rem, 95svh);
+}
+
+.higt-full {
+    height: 100%;
+}
+
+
+.juscon-cen {
+    justify-content: center;
+}
+
+.juscon-end {
+    justify-content: end;
+}
+
+.juscon-spbt {
+    justify-content: space-between;
+}
+
+.left-zero {
+    left: 0;
+}
+
+.malr-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.marb-1rem {
+    margin-bottom: 1rem;
+}
+
+.marb-2rem {
+    margin-bottom: 2rem;
+}
+
+.marb-3rem {
+    margin-bottom: 3rem;
+}
+
+.marb-20rem {
+    margin-bottom: 20rem;
+}
+
+.marr-1rem {
+    margin-right: 1rem;
+}
+
+.marr-2rem {
+    margin-right: 2rem;
+}
+
+.mart-4rem {
+    margin-top: 4rem;
+}
+
+.matb-4rem {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+.matb-2rem {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+
+
+.mxwd-1536 {
+    max-width: 1536px;
+}
+
+.mxwd-2rem {
+    max-width: 2rem;
+}
+
+.obft-covr {
+    object-fit: cover;
+}
+
+.opac-50pc {
+    opacity: 0.5;
+}
+
+.pad-pad {
+    padding: var(--padding);
+}
+
+.padb-h1xs {
+    padding-bottom: calc(var(--h1-size) * var(--gap-xs) );
+}
+
+.padb-h1m {
+    padding-bottom: calc(var(--h1-size) * var(--gap-m) );
+}
+
+.padb-h1xl {
+    padding-bottom: calc(var(--h1-size) * var(--gap-xl) );
+}
+
+.padb-h2l {
+    padding-bottom: calc(var(--h2-size) * var(--gap-l) );
+}
+
+.padb-h3xs {
+    padding-bottom: calc(var(--h3-size) * var(--gap-xs) );
+}
+
+.padb-h3m {
+    padding-bottom: calc(var(--h3-size) * var(--gap-m) );
+}
+
+.padb-h3l {
+    padding-bottom: calc(var(--h3-size) * var(--gap-l) );
+}
+
+.padb-h3xl {
+    padding-bottom: calc(var(--h3-size) * var(--gap-xl) );
+}
+
+.padb-h4xl {
+    padding-bottom: calc(var(--h4-size) * var(--gap-xl) );
+}
+
+.padb-h4xs {
+    padding-bottom: calc(var(--h4-size) * var(--gap-xs) );
+}
+
+
+.padb-h5s {
+    padding-bottom: calc(var(--h5-size) * var(--gap-s) );
+}
+
+.padb-h5m {
+    padding-bottom: calc(var(--h5-size) * var(--gap-m) );
+}
+
+.padb-h5xl {
+    padding-bottom: calc(var(--h5-size) * var(--gap-xl) );
+}
+
+.padb-h5l {
+    padding-bottom: calc(var(--h5-size) * var(--gap-xl) );
+}
+
+.padb-h6xs {
+    padding-bottom: calc(var(--h6-size) * var(--gap-xs) );
+}
+
+.padb-h6s {
+    padding-bottom: calc(var(--h6-size) * var(--gap-s) );
+}
+
+.padb-pl {
+    padding-bottom: calc(var(--p-size) * var(--gap-l) );
+}
+
+
+.padb-400p {
+    padding-bottom: 400px;
+}
+
+
+.padt-400p {
+    padding-top: 400px;
+}
+
+.padt-h2l {
+    padding-top: calc(var(--h2-size) * var(--gap-l) );
+}
+
+.pdlrtb-h1 {
+    --h1-space-diff: calc( calc(var(--h1-line) - var(--h1-size)) * 0.5) ;
+    padding-top: calc(var(--h1-size) - var(--h1-space-diff) )  ;
+    
+    padding-left: var(--h1-size);
+    padding-right: var(--h1-size);
+    padding-bottom: var(--h1-size);
+
+}
+
+.pdlrtb-h3 {
+    --h3-space-diff: calc( calc(var(--h3-line) - var(--h3-size)) * 0.5) ;
+    padding-top: calc(var(--h3-size) - var(--h3-space-diff) )  ;
+    
+    padding-left: var(--h3-size);
+    padding-right: var(--h3-size);
+    padding-bottom: var(--h3-size);
+
+}
+
+.pdlrtb-h4 {
+    --h4-space-diff: calc( calc(var(--h4-line) - var(--h4-size)) * 0.5) ;
+    padding-top: calc(var(--h4-size) - var(--h4-space-diff) )  ;
+    padding-left: var(--h4-size);
+    padding-right: var(--h4-size);
+    padding-bottom: var(--h4-size);
+}
+
+.pdlrtb-h5 {
+    --h5-space-diff: calc( calc(var(--h5-line) - var(--h5-size)) * 0.5) ;
+    padding-top: calc(var(--h5-size) - var(--h5-space-diff) )  ;
+    
+    padding-left: var(--h5-size);
+    padding-right: var(--h5-size);
+    padding-bottom: var(--h5-size);
+}
+
+.pdlrtb-h6 {
+    --h6-space-diff: calc( calc(var(--h6-line) - var(--h6-size)) * 0.5) ;
+    padding-top: calc(var(--h6-size) - var(--h6-space-diff) )  ;
+    
+    padding-left: var(--h6-size);
+    padding-right: var(--h6-size);
+    padding-bottom: var(--h6-size);
+}
+
+.pdtb-h1 {
+    --h1-space-diff: calc( calc(var(--h1-line) - var(--h1-size)) * 0.5) ;
+    padding-top: calc(var(--h1-size) - var(--h1-space-diff) )  ;
+    
+    padding-bottom: var(--h1-size);
+
+}
+
+.pdtb-h3 {
+    --h3-space-diff: calc( calc(var(--h3-line) - var(--h3-size)) * 0.5) ;
+    padding-top: calc(var(--h3-size) - var(--h3-space-diff) )  ;
+    
+    padding-bottom: var(--h3-size);
+
+}
+
+.obft-covr {
+    object-fit: cover;
+}
+
+.ovfl-hidn {
+    overflow: hidden;
+}
+
+.posi-rela {
+    position: relative;
+}
+
+.posi-absl {
+    position: absolute;
+}
+
+.text-rite{
+    text-align: right;
+}
+
+.text-cent{
+    text-align: center;
+}
+
+.top-zero {
+    top: 0;
+}
+
+.wdth-full{
+    width: 100%;
+}
+
+.wdth-navi {
+    width: min(1584px, 100vw);
+}
+
+.zind-men1 {
+    z-index: -1 ;
+}
+
+#kevin:hover {
+    content: url(./assets/images/linkedin.webp);
+    border-radius: 0%;
+}
+
+@media (max-width: 768px) {
+
+    .med\:alnitm-cen {
+        align-items: center;
+
+    }
+
+    .med\:grtc-1fr {
+        grid-template-columns: 1fr;
+    }
+
+    .med\:malr-pad {
+        margin-left: var(--padding);
+        margin-right: var(--padding);
+    }
+
+    .med\:pdlr-pad {
+        padding-left: var(--padding);
+        padding-right: var(--padding);
+    }
+
+    .med\:disp-none {
+        display: none;
+    }
+    
+    .med\:disp-blok {
+        display: block;
+    }
+
+
+
+}

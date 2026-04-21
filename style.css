@@ -794,9 +794,15 @@ p {
 
     }
 
+    .med\:grcl-1sp1 {
+        grid-column: span 1;
+    }
+
     .med\:grtc-1fr {
         grid-template-columns: 1fr;
     }
+
+
 
     .med\:malr-pad {
         margin-left: var(--padding);

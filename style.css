@@ -234,6 +234,13 @@ h2 {
     font-weight: var(--h2-weight);
 }
 
+h2 span {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: inherit;
+}
+
 h3 {
     font-family: var(--ff);
     font-size: var(--h3-size);
@@ -241,11 +248,26 @@ h3 {
     font-weight: var(--h3-weight);
 }
 
+h3 span {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: inherit;
+}
+
+
 h4 {
     font-family: var(--ff);
     font-size: var(--h4-size);
     line-height: var(--h4-line);
     font-weight: var(--h4-weight);
+}
+
+h4 span {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: inherit;
 }
 
 h5 {
@@ -255,12 +277,27 @@ h5 {
     font-weight: var(--h5-weight);
 }
 
+h5 span {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: inherit;
+}
+
 h6 {
     font-family: var(--ff);
     font-size: var(--h6-size);
     line-height: var(--h6-line);
     font-weight: var(--h6-weight);
 }
+
+h6 span {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: inherit;
+}
+
 
 p {
     font-family: var(--ff);
@@ -452,6 +489,10 @@ p {
     grid-column: span 3;
 }
 
+.grcl-1sp4 {
+    grid-column: span 3;
+}
+
 .grtc-21fr {
     grid-template-columns: repeat(2, 1fr);
 }
@@ -629,6 +670,10 @@ p {
     padding-bottom: calc(var(--h3-size) * var(--gap-xl) );
 }
 
+.padb-h4{
+    padding-bottom: var(--h4-size);
+}
+
 .padb-h4xl {
     padding-bottom: calc(var(--h4-size) * var(--gap-xl) );
 }
@@ -782,10 +827,7 @@ p {
     z-index: -1 ;
 }
 
-#kevin:hover {
-    content: url(./assets/images/linkedin.webp);
-    border-radius: 0%;
-}
+
 
 @media (max-width: 768px) {
 
@@ -823,5 +865,28 @@ p {
     }
 
 
+}
 
+
+/* Core CSS */
+.carousel {
+	display: flex;
+	overflow-x: scroll;
+	scroll-snap-type: x mandatory;
+	padding: 20px 0;
+	/* 👇 If you would like to hide the scrollbar, but not recommended */
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
+	.list-item {
+		scroll-snap-align: start;
+	}
+
+	.item-view {
+		width: 300px;
+		padding-right: 48px;
+		/* 👇 This is the magic: 1000px represents the size of the container (yours can be any width), but here 476 is 50% of the container size, minus any left padding on the container - in this case it's 24px, which equals 480px. */
+		transform: translateX(calc(max(1000px, 100vw) / 2 - 480px));
+	}
 }

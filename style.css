@@ -833,7 +833,7 @@ p {
 
 
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
 
     .med\:alnitm-cen {
         align-items: center;
@@ -871,26 +871,3 @@ p {
 
 }
 
-
-/* Core CSS */
-.carousel {
-	display: flex;
-	overflow-x: scroll;
-	scroll-snap-type: x mandatory;
-	padding: 20px 0;
-	/* 👇 If you would like to hide the scrollbar, but not recommended */
-	&::-webkit-scrollbar {
-		display: none;
-	}
-
-	.list-item {
-		scroll-snap-align: start;
-	}
-
-	.item-view {
-		width: 300px;
-		padding-right: 48px;
-		/* 👇 This is the magic: 1000px represents the size of the container (yours can be any width), but here 476 is 50% of the container size, minus any left padding on the container - in this case it's 24px, which equals 480px. */
-		transform: translateX(calc(max(1000px, 100vw) / 2 - 480px));
-	}
-}
